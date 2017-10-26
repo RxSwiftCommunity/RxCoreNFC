@@ -10,15 +10,17 @@ NFCNDEFReaderSession
     .subscribe { (event) in
     switch event {
         case .next(let messages):
-            // handle [NFCNDEFMessage]
+            // handle '[NFCNDEFMessage]'
             break
         case .error(let error):
             // handle error
             break
         case .completed:
-            // never happens
+            // only happens when 'invalidateAfterFirstRead = true'
             break
         }
     }
     .disposed(by: disposeBag)
 ```
+
+// TODO: NFCISO15693ReaderSession

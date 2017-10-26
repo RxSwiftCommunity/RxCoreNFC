@@ -23,6 +23,15 @@ final class RxNFCNDEFReaderSessionDelegate: NSObject, NFCNDEFReaderSessionDelega
     }
 
     public func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+        if let nfcReaderError = error as? NFCReaderError {
+            switch nfcReaderError.code {
+            case NFCReaderError.readerSessionInvalidationErrorFirstNDEFTagRead:
+                observer.on(.completed)
+                return
+            default:
+                break
+            }
+        }
         observer.on(.error(error))
     }
 
