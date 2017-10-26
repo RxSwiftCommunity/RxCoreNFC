@@ -16,7 +16,7 @@ NFCNDEFReaderSession
             // handle error
             break
         case .completed:
-            // only happens when 'invalidateAfterFirstRead = true'
+            // only happens when 'invalidateAfterFirstRead = true' (default)
             break
         }
     }
