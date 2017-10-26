@@ -4,11 +4,13 @@ RxCoreNFC (based on RxSwift)
 Basic usage.
 
 ```swift
-NFCNDEFReaderSession
+let session = NFCNDEFReaderSession
     .rx
     .create()
+
+session
     .subscribe { (event) in
-    switch event {
+        switch event {
         case .next(let messages):
             // handle '[NFCNDEFMessage]'
             break
@@ -16,7 +18,7 @@ NFCNDEFReaderSession
             // handle error
             break
         case .completed:
-            // only happens when 'invalidateAfterFirstRead = true' (default)
+            // only happens when 'invalidateAfterFirstRead = true' (default), or after user cancellation
             break
         }
     }
