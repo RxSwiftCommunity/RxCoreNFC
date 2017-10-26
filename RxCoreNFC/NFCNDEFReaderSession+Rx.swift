@@ -13,6 +13,9 @@ import CoreNFC
 #endif
 
 final class RxNFCNDEFReaderSessionDelegate: NSObject, NFCNDEFReaderSessionDelegate {
+    
+    fileprivate static var session: NFCNDEFReaderSession?
+    fileprivate static var current: NFCNDEFReaderSessionDelegate?
 
     typealias Observer = AnyObserver<[NFCNDEFMessage]>
 
@@ -21,7 +24,12 @@ final class RxNFCNDEFReaderSessionDelegate: NSObject, NFCNDEFReaderSessionDelega
     init(observer: Observer) {
         self.observer = observer
     }
-
+    
+    fileprivate static func dispose() {
+        RxNFCNDEFReaderSessionDelegate.session = nil
+        RxNFCNDEFReaderSessionDelegate.current = nil
+    }
+    
     public func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
         if let nfcReaderError = error as? NFCReaderError {
             switch nfcReaderError.code {
@@ -29,12 +37,14 @@ final class RxNFCNDEFReaderSessionDelegate: NSObject, NFCNDEFReaderSessionDelega
                 fallthrough
             case NFCReaderError.readerSessionInvalidationErrorFirstNDEFTagRead:
                 observer.on(.completed)
+                RxNFCNDEFReaderSessionDelegate.dispose()
                 return
             default:
                 break
             }
         }
         observer.on(.error(error))
+        RxNFCNDEFReaderSessionDelegate.dispose()
     }
 
     public func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
@@ -44,11 +54,13 @@ final class RxNFCNDEFReaderSessionDelegate: NSObject, NFCNDEFReaderSessionDelega
 }
 
 extension Reactive where Base: NFCNDEFReaderSession {
-
+    
     public static func create(invalidateAfterFirstRead: Bool = true) -> Observable<[NFCNDEFMessage]> {
         return Observable.create { observer in
-            _ = NFCNDEFReaderSession(delegate: RxNFCNDEFReaderSessionDelegate(observer: observer), queue: nil, invalidateAfterFirstRead: invalidateAfterFirstRead)
-            return Disposables.create()
+            let delegate = RxNFCNDEFReaderSessionDelegate(observer: observer)
+            RxNFCNDEFReaderSessionDelegate.session = NFCNDEFReaderSession(delegate: delegate, queue: nil, invalidateAfterFirstRead: invalidateAfterFirstRead)
+            RxNFCNDEFReaderSessionDelegate.current = delegate
+            return Disposables.create(with: RxNFCNDEFReaderSessionDelegate.dispose)
         }
     }
 
