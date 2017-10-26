@@ -23,4 +23,11 @@ NFCNDEFReaderSession
     .disposed(by: disposeBag)
 ```
 
+Carthage setup.
+
+```
+github "maxvol/RxCoreNFC" ~> 0.0.1
+
+```
+
 // TODO: NFCISO15693ReaderSession
