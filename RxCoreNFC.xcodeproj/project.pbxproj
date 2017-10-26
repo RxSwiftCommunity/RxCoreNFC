@@ -12,8 +12,6 @@
 		94BCD8D61F9FD7430019D21F /* RxCoreNFC.h in Headers */ = {isa = PBXBuildFile; fileRef = 94BCD8C81F9FD7420019D21F /* RxCoreNFC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94BCD8EA1F9FDD740019D21F /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94BCD8E41F9FDB7F0019D21F /* RxSwift.framework */; };
 		94BCD8EC1F9FDFA30019D21F /* NFCNDEFReaderSession+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCD8EB1F9FDFA30019D21F /* NFCNDEFReaderSession+Rx.swift */; };
-		94BCD8EE1F9FDFE00019D21F /* RxNFCNDEFReaderSessionDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCD8ED1F9FDFE00019D21F /* RxNFCNDEFReaderSessionDelegateProxy.swift */; };
-		94BCD8F01F9FE19A0019D21F /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94BCD8EF1F9FE19A0019D21F /* RxCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +37,6 @@
 		94BCD8E21F9FDAFC0019D21F /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		94BCD8E41F9FDB7F0019D21F /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../../Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		94BCD8EB1F9FDFA30019D21F /* NFCNDEFReaderSession+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NFCNDEFReaderSession+Rx.swift"; sourceTree = "<group>"; };
-		94BCD8ED1F9FDFE00019D21F /* RxNFCNDEFReaderSessionDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxNFCNDEFReaderSessionDelegateProxy.swift; sourceTree = "<group>"; };
 		94BCD8EF1F9FE19A0019D21F /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = ../../Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94BCD8F01F9FE19A0019D21F /* RxCocoa.framework in Frameworks */,
 				94BCD8EA1F9FDD740019D21F /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				94BCD8EB1F9FDFA30019D21F /* NFCNDEFReaderSession+Rx.swift */,
-				94BCD8ED1F9FDFE00019D21F /* RxNFCNDEFReaderSessionDelegateProxy.swift */,
 				94BCD8C81F9FD7420019D21F /* RxCoreNFC.h */,
 				94BCD8C91F9FD7420019D21F /* Info.plist */,
 			);
@@ -232,7 +227,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 			);
 			name = Carthage;
 			outputPaths = (
@@ -263,7 +257,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				94BCD8EC1F9FDFA30019D21F /* NFCNDEFReaderSession+Rx.swift in Sources */,
-				94BCD8EE1F9FDFE00019D21F /* RxNFCNDEFReaderSessionDelegateProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

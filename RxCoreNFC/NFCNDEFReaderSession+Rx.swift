@@ -12,16 +12,35 @@ import CoreNFC
     import RxCocoa
 #endif
 
-extension Reactive where Base: NFCNDEFReaderSession {
-    
-    /**
-     Reactive wrapper for `delegate`.
-     For more information take a look at `DelegateProxyType` protocol documentation.
-     */
-    public var delegate: DelegateProxy {
-        return RxNFCNDEFReaderSessionDelegateProxy.proxyForObject(base)
+final class RxNFCNDEFReaderSessionDelegate: NSObject, NFCNDEFReaderSessionDelegate {
+
+    typealias Observer = AnyObserver<[NFCNDEFMessage]>
+
+    private let observer: Observer
+
+    init(observer: Observer) {
+        self.observer = observer
     }
-    
-    // TODO
-    
+
+    public func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+        observer.on(.error(error))
+    }
+
+    public func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
+        observer.on(.next(messages))
+    }
+
 }
+
+extension Reactive where Base: NFCNDEFReaderSession {
+
+    public static func create(invalidateAfterFirstRead: Bool = true) -> Observable<[NFCNDEFMessage]> {
+        return Observable.create { observer in
+            _ = NFCNDEFReaderSession(delegate: RxNFCNDEFReaderSessionDelegate(observer: observer), queue: nil, invalidateAfterFirstRead: invalidateAfterFirstRead)
+            return Disposables.create()
+        }
+    }
+
+}
+
+
