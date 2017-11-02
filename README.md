@@ -4,9 +4,11 @@ RxCoreNFC (based on RxSwift)
 Basic usage.
 
 ```swift
-NFCNDEFReaderSession
-    .rx
-    .create()
+let session = NFCNDEFReaderSession.rx.session() // .session(invalidateAfterFirstRead: false)
+session
+    .flatMapLatest { (session) -> Observable<[NFCNDEFMessage]> in
+        return session.message
+    }
     .subscribe { (event) in
         switch event {
         case .next(let messages):
