@@ -28,7 +28,7 @@ session
 Carthage setup.
 
 ```
-github "maxvol/RxCoreNFC" ~> 0.0.1
+github "maxvol/RxCoreNFC" ~> 0.0.4
 
 ```
 
