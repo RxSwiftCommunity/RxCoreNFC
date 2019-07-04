@@ -28,8 +28,10 @@ session
 Carthage setup.
 
 ```
-github "maxvol/RxCoreNFC" ~> 0.0.4
+github "RxSwiftCommunity/RxCoreNFC" ~> 0.0.4
 
 ```
 
 // TODO: NFCISO15693ReaderSession
+
+Copyright (c) RxSwiftCommunity
