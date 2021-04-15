@@ -46,9 +46,13 @@ public struct RxNFCNDEFReaderSession {
 
     public let message: Observable<[NFCNDEFMessage]>
 
-    public init(invalidateAfterFirstRead: Bool) {
+    public init(invalidateAfterFirstRead: Bool, alertMessage: String?) {
         let delegate = RxNFCNDEFReaderSessionDelegate()
         let session = NFCNDEFReaderSession(delegate: delegate, queue: nil, invalidateAfterFirstRead: invalidateAfterFirstRead)
+        if let alertMessage = alertMessage {
+            session.alertMessage = alertMessage
+        }
+
         self.message = Observable
             .create { observer in
                 delegate.observer = observer
@@ -65,10 +69,10 @@ public struct RxNFCNDEFReaderSession {
 
 extension Reactive where Base: NFCNDEFReaderSession {
 
-    static public func session(invalidateAfterFirstRead: Bool = true) -> Observable<RxNFCNDEFReaderSession> {
+    static public func session(invalidateAfterFirstRead: Bool = true, alertMessage: String? = nil) -> Observable<RxNFCNDEFReaderSession> {
         return Observable
             .create { observer in
-                let session = RxNFCNDEFReaderSession(invalidateAfterFirstRead: invalidateAfterFirstRead)
+                let session = RxNFCNDEFReaderSession(invalidateAfterFirstRead: invalidateAfterFirstRead, alertMessage: alertMessage)
                 observer.on(.next(session))
                 return Disposables.create()
             }
